@@ -1,0 +1,100 @@
+---
+title: Pins and Publishing
+---
+
+![](download.png)
+
+# Pins
+
+_The pins package publishes data, models, and other Python objects, making it easy to share them across projects and with your colleagues._
+
+`pip install pins`
+
+The pins package helps you publish data sets, models, and other R objects, making it easy to share them across projects and with your colleagues. The pin board can be on
+
+- Local or temp folder
+- Shared folder (like Dropbox)
+- RStudio Connect
+- Amazon S3
+- Azure storage
+- Google Cloud
+
+## When should I use pins?
+
+-   When you're tired of emailing csv's or models around
+-   When you (or your colleagues) use R *and* Python for data tasks
+-   When you want to save just a little bit of data in a visible place
+-   When you want to version data or models in a lightweight way
+
+## How do I use pins?
+
+Pins includes 2 major concepts: a board and a pinned object.
+
+```{python}
+import pins
+```
+
+```{python}
+
+```
+
+# Publishing on Connect
+
+_This package provides a CLI (command-line interface) for interacting with and deploying to Posit Connect._
+
+`pip install rsconnect-python`
+
+## Why would we use Connect?
+
+
+
+## What can we all publish?
+
+-   Jupyter Notebooks
+-   Flask applications
+-   FastAPI applications
+-   Plotly Dash applications
+-   Streamlit applications
+-   Bokeh applications
+-   Shiny applications
+-   Voila applications
+
+## How to publish content there?
+
+This is generally done through the CLI tool, `rsconnect-python`.
+
+Things to know before you get started:
+- Posit Connect insists on matching <MAJOR.MINOR> versions of Python. For example, a server with only Python 3.8 installed will fail to match content deployed with Python 3.7. [More on Python version matching](https://docs.posit.co/connect/admin/python/#python-version-matching)
+
+``` bash
+rsconnect deploy notebook \
+    --server https://connect.example.org \
+    --api-key my-api-key \
+    my-notebook.ipynb
+```
+
+
+If you are always deploying to the same server, you can use the `add` command to store this information.
+
+``` bash
+rsconnect add \
+    --api-key my-api-key \
+    --server https://connect.example.org \
+    --name myserver
+```
+
+Then you can reference the server by name in your command.
+
+``` bash
+rsconnect deploy notebook --name myserver my-notebook.ipynb
+```
+
+## My content is published, now what?
+
+## Resources
+
+-   [pins for Python](https://rstudio.github.io/pins-python/intro.html), [GitHub](https://github.com/rstudio/pins-python)
+-   [pins for R](https://github.com/rstudio/pins-r), [GitHub](https://pins.rstudio.com/)
+-   [rsconnect-python](https://github.com/rstudio/rsconnect-python)
+-   [Connect publishing](https://docs.posit.co/rsconnect-python/)
+- [End to end workflow for model management, in R and Python](https://colorado.posit.co/rsc/connect/#/apps/0c1cad91-1e46-4eb9-9e15-713ce5c87566/access/6080)
