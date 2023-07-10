@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Pins and Publishing</title>
+<title>Pins and publishing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,6 +67,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -79,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pins and Publishing</h1>
+<h1 class="title">Pins and publishing</h1>
 </div>
 
 
@@ -95,23 +98,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p><img src="download.png" class="img-fluid"></p>
-<section id="pins" class="level1">
-<h1>Pins</h1>
+<section id="pins" class="level2">
+<h2 class="anchored" data-anchor-id="pins">Pins</h2>
 <p><em>The pins package publishes data, models, and other Python objects, making it easy to share them across projects and with your colleagues.</em></p>
 <p><code>pip install pins</code></p>
 <p>The pins package helps you publish data sets, models, and other R objects, making it easy to share them across projects and with your colleagues. The pin board can be on</p>
 <ul>
 <li>Local or temp folder</li>
-<li>Shared folder (like Dropbox)</li>
 <li>RStudio Connect</li>
 <li>Amazon S3</li>
 <li>Azure storage</li>
 <li>Google Cloud</li>
 </ul>
+</section>
 <section id="when-should-i-use-pins" class="level2">
 <h2 class="anchored" data-anchor-id="when-should-i-use-pins">When should I use pins?</h2>
 <ul>
-<li>When you’re tired of emailing csv’s or models around</li>
+<li>When you’re tired of emailing CSVs or models around</li>
 <li>When you (or your colleagues) use R <em>and</em> Python for data tasks</li>
 <li>When you want to save just a little bit of data in a visible place</li>
 <li>When you want to version data or models in a lightweight way</li>
@@ -121,19 +124,329 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="how-do-i-use-pins">How do I use pins?</h2>
 <p>Pins includes 2 major concepts: a board and a pinned object.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_temp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins.data <span class="im">import</span> mtcars</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tmpboard <span class="op">=</span> board_temp()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tmpboard</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>&lt;pins.boards.BaseBoard at 0x1263097c0&gt;</code></pre>
 </div>
-</section>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tmpboard.pin_write(mtcars.head(), <span class="st">"mtcars"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Writing pin:
+Name: 'mtcars'
+Version: 20230710T164815Z-120a5</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>Meta(title='mtcars: a pinned 5 x 11 DataFrame', description=None, created='20230710T164815Z', pin_hash='120a54f7e0818041', file='mtcars.csv', file_size=249, type='csv', api_version=1, version=Version(created=datetime.datetime(2023, 7, 10, 16, 48, 15, 990642), hash='120a54f7e0818041'), tags=None, name='mtcars', user={}, local={})</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tmpboard.pin_read(<span class="st">"mtcars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mpg</th>
+<th data-quarto-table-cell-role="th">cyl</th>
+<th data-quarto-table-cell-role="th">disp</th>
+<th data-quarto-table-cell-role="th">hp</th>
+<th data-quarto-table-cell-role="th">drat</th>
+<th data-quarto-table-cell-role="th">wt</th>
+<th data-quarto-table-cell-role="th">qsec</th>
+<th data-quarto-table-cell-role="th">vs</th>
+<th data-quarto-table-cell-role="th">am</th>
+<th data-quarto-table-cell-role="th">gear</th>
+<th data-quarto-table-cell-role="th">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>21.0</td>
+<td>6</td>
+<td>160.0</td>
+<td>110</td>
+<td>3.90</td>
+<td>2.620</td>
+<td>16.46</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>21.0</td>
+<td>6</td>
+<td>160.0</td>
+<td>110</td>
+<td>3.90</td>
+<td>2.875</td>
+<td>17.02</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>22.8</td>
+<td>4</td>
+<td>108.0</td>
+<td>93</td>
+<td>3.85</td>
+<td>2.320</td>
+<td>18.61</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>21.4</td>
+<td>6</td>
+<td>258.0</td>
+<td>110</td>
+<td>3.08</td>
+<td>3.215</td>
+<td>19.44</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>18.7</td>
+<td>8</td>
+<td>360.0</td>
+<td>175</td>
+<td>3.15</td>
+<td>3.440</td>
+<td>17.02</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>But, you can make pins more powerful with metadata.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tmpboard.pin_meta(<span class="st">"mtcars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Meta(title='mtcars: a pinned 5 x 11 DataFrame', description=None, created='20230710T164815Z', pin_hash='120a54f7e0818041', file='mtcars.csv', file_size=249, type='csv', api_version=1, version=Version(created=datetime.datetime(2023, 7, 10, 16, 48, 15), hash='120a5'), tags=None, name='mtcars', user={}, local={})</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tmpboard.pin_write(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    mtcars,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"mtcars2"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span><span class="st">"csv"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    description <span class="op">=</span> <span class="st">"Data extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    metadata <span class="op">=</span> {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"source"</span>: <span class="st">"Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411."</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Writing pin:
+Name: 'mtcars2'
+Version: 20230710T164824Z-3b134</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Meta(title='mtcars2: a pinned 32 x 11 DataFrame', description='Data extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).', created='20230710T164824Z', pin_hash='3b134bae183b50c9', file='mtcars2.csv', file_size=1333, type='csv', api_version=1, version=Version(created=datetime.datetime(2023, 7, 10, 16, 48, 24, 131030), hash='3b134bae183b50c9'), tags=None, name='mtcars2', user={'source': 'Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411.'}, local={})</code></pre>
+</div>
+</div>
+<p>Pins can also be used to version objects.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>board2 <span class="op">=</span> board_temp()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>board2.pin_write([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>], name <span class="op">=</span> <span class="st">"x"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"json"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>board2.pin_write([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], name <span class="op">=</span> <span class="st">"x"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"json"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>board2.pin_write([<span class="dv">1</span>,<span class="dv">2</span>], name <span class="op">=</span> <span class="st">"x"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"json"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>board2.pin_versions(<span class="st">"x"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Writing pin:
+Name: 'x'
+Version: 20230710T164243Z-2bc5d
+Writing pin:
+Name: 'x'
+Version: 20230710T164243Z-c24c0
+Writing pin:
+Name: 'x'
+Version: 20230710T164243Z-91d9a</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">created</th>
+<th data-quarto-table-cell-role="th">hash</th>
+<th data-quarto-table-cell-role="th">version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-07-10 16:42:43</td>
+<td>2bc5d</td>
+<td>20230710T164243Z-2bc5d</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-07-10 16:42:43</td>
+<td>91d9a</td>
+<td>20230710T164243Z-91d9a</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-07-10 16:42:43</td>
+<td>c24c0</td>
+<td>20230710T164243Z-c24c0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>board2.pin_read(<span class="st">'x'</span>, version<span class="op">=</span><span class="st">'___'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>[1, 2, 3]</code></pre>
+</div>
+</div>
+<p>You can bring pins to many platforms with different boards.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> os.getenv(<span class="st">"CO_API_KEY"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>rsc_url <span class="op">=</span> os.getenv(<span class="st">"CO_RSC_URL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_connect</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>board <span class="op">=</span> board_connect(server_url<span class="op">=</span>rsc_url, api_key<span class="op">=</span>api_key) <span class="co"># board_s3, board_gcs</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>board.pin_write(mtcars, <span class="st">"isabel.zimmerman/mtcars"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Writing pin:
+Name: 'isabel.zimmerman/mtcars'
+Version: 20230710T164835Z-3b134</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Meta(title='mtcars: a pinned 32 x 11 DataFrame', description=None, created='20230710T164835Z', pin_hash='3b134bae183b50c9', file='mtcars.csv', file_size=1333, type='csv', api_version=1, version=VersionRaw(version='77094'), tags=None, name='isabel.zimmerman/mtcars', user={}, local={})</code></pre>
+</div>
+</div>
+<p>You can see this pin now in the Connect UI.</p>
+<p>This allows for easy collaboration with R users!</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>board.pin_read(<span class="st">'isabel.zimmerman/ten_numbers'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>vetiver</code>, another package in the <code>pins</code> ecosystem, can help with model versioning tasks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_temp</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> vetiver_pin_write</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.data <span class="im">import</span> mtcars</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> linear_model</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>) </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> mtcars[<span class="st">"mpg"</span>]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> linear_model.LinearRegression().fit(X, y)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                 prototype_data <span class="op">=</span> X)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_temp(allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
 </section>
 <section id="publishing-on-connect" class="level1">
 <h1>Publishing on Connect</h1>
 <p><em>This package provides a CLI (command-line interface) for interacting with and deploying to Posit Connect.</em></p>
 <p><code>pip install rsconnect-python</code></p>
-<section id="why-would-we-use-connect" class="level2">
-<h2 class="anchored" data-anchor-id="why-would-we-use-connect">Why would we use Connect?</h2>
-</section>
 <section id="what-can-we-all-publish" class="level2">
 <h2 class="anchored" data-anchor-id="what-can-we-all-publish">What can we all publish?</h2>
+<p>You are able to publish static content as well as API endpoints and web applications.</p>
 <ul>
 <li>Jupyter Notebooks</li>
 <li>Flask applications</li>
@@ -148,21 +461,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-to-publish-content-there" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-publish-content-there">How to publish content there?</h2>
 <p>This is generally done through the CLI tool, <code>rsconnect-python</code>.</p>
-<p>Things to know before you get started: - Posit Connect insists on matching &lt;MAJOR.MINOR&gt; versions of Python. For example, a server with only Python 3.8 installed will fail to match content deployed with Python 3.7. <a href="https://docs.posit.co/connect/admin/python/#python-version-matching">More on Python version matching</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rsconnect</span> deploy notebook <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--server</span> https://connect.example.org <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--api-key</span> my-api-key <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    my-notebook.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll need</p>
+<ul>
+<li>a <code>.py</code>, <code>.qmd</code> or <code>.ipynb</code> file to deploy</li>
+<li>a server url and API key</li>
+<li>a <code>requirements.txt</code> file, optionally</li>
+</ul>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rsconnect deploy notebook <span class="op">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>server https:<span class="op">//</span><span class="ex">connect</span>.example.org <span class="op">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>api<span class="op">-</span>key my<span class="op">-</span>api<span class="op">-</span>key <span class="op">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    my<span class="op">-</span>notebook.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or <code>api</code>, <code>bokeh</code>, <code>dash</code>, <code>fastapi</code>, <code>html</code>, etc..</p>
 <p>If you are always deploying to the same server, you can use the <code>add</code> command to store this information.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rsconnect</span> add <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--api-key</span> my-api-key <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--server</span> https://connect.example.org <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--name</span> myserver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rsconnect add <span class="op">\</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>api<span class="op">-</span>key my<span class="op">-</span>api<span class="op">-</span>key <span class="op">\</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>server https:<span class="op">//</span><span class="ex">connect</span>.example.org <span class="op">\</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>name myserver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Then you can reference the server by name in your command.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rsconnect</span> deploy notebook <span class="at">--name</span> myserver my-notebook.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rsconnect deploy notebook <span class="op">--</span>name myserver my<span class="op">-</span>notebook.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="my-content-is-published-now-what" class="level2">
 <h2 class="anchored" data-anchor-id="my-content-is-published-now-what">My content is published, now what?</h2>
+<p>With published content, you can schedule runs, interact with your APIs, and pull down data.</p>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>

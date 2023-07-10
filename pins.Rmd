@@ -1,0 +1,15 @@
+---
+title: "Just writing a pin!"
+output: html_document
+date: "2023-07-07"
+---
+
+
+```{r cars}
+library(pins)
+
+b <- board_rsconnect()
+
+b %>% pin_write(1:10, "ten_numbers", description = "10 numbers", type = "csv")
+b
+```
